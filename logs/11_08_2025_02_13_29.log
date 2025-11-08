@@ -1,0 +1,3 @@
+{"timestamp": "2025-11-07T20:43:29.939602Z", "level": "info", "event": "Loaded GROQ_API_KEY from individual env var"}
+{"timestamp": "2025-11-07T20:43:29.941611Z", "level": "info", "event": "Loaded GOOGLE_API_KEY from individual env var"}
+{"keys": {"GROQ_API_KEY": "gsk_vP...", "GOOGLE_API_KEY": "AIzaSy..."}, "timestamp": "2025-11-07T20:43:29.941611Z", "level": "info", "event": "API keys loaded"}

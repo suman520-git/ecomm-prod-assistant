@@ -1,0 +1,2 @@
+{"timestamp": "2025-11-07T20:29:59.086922Z", "level": "info", "event": "Loaded GROQ_API_KEY from individual env var"}
+{"timestamp": "2025-11-07T20:29:59.086922Z", "level": "info", "event": "Loaded GOOGLE_API_KEY from individual env var"}
