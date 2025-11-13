@@ -5,6 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 from langgraph.checkpoint.memory import MemorySaver
+from langgraph.errors import GraphRecursionError
 
 
 
@@ -25,7 +26,7 @@ class AgenticRAG:
         self.retriever_obj = Retriever()
         self.model_loader = ModelLoader()
         self.llm = self.model_loader.load_llm()
-        self.checkpointer=MemorySaver()
+        self.checkpointer = MemorySaver()
         self.workflow = self._build_workflow()
         self.app = self.workflow.compile(checkpointer=self.checkpointer)
 
@@ -43,19 +44,13 @@ class AgenticRAG:
                 f"Reviews:\n{d.page_content.strip()}"
             )
             formatted_chunks.append(formatted)
-
-        # print("formatted chunks++++++++++++++++","\n\n---\n\n".join(formatted_chunks))
         return "\n\n---\n\n".join(formatted_chunks)
 
     # ---------- Nodes ----------
     def _ai_assistant(self, state: AgentState):
         print("--- CALL ASSISTANT ---")
         messages = state["messages"]
-
-        # print("messages-----------",messages)
         last_message = messages[-1].content
-
-        # print("last_message$$$$$",last_message)
 
         if any(word in last_message.lower() for word in ["price", "review", "product"]):
             return {"messages": [HumanMessage(content="TOOL: retriever")]}
@@ -70,25 +65,15 @@ class AgenticRAG:
     def _vector_retriever(self, state: AgentState):
         print("--- RETRIEVER ---")
         query = state["messages"][-1].content
-
-        # print("query*****************************",query)
         retriever = self.retriever_obj.load_retriever()
         docs = retriever.invoke(query)
-
-        # print("docs befor format:::",docs)
         context = self._format_docs(docs)
-        # print("docs after format:::",context)
-
         return {"messages": [HumanMessage(content=context)]}
 
     def _grade_documents(self, state: AgentState) -> Literal["generator", "rewriter"]:
         print("--- GRADER ---")
         question = state["messages"][0].content
-
-        # print("question::",question)
         docs = state["messages"][-1].content
-
-        # print("docs:", docs)
 
         prompt = PromptTemplate(
             template="""You are a grader. Question: {question}\nDocs: {docs}\n
@@ -97,8 +82,6 @@ class AgenticRAG:
         )
         chain = prompt | self.llm | StrOutputParser()
         score = chain.invoke({"question": question, "docs": docs})
-
-        print("score::",score)
         return "generator" if "yes" in score.lower() else "rewriter"
 
     def _generate(self, state: AgentState):
@@ -144,20 +127,37 @@ class AgenticRAG:
         return workflow
 
     # ---------- Public Run ----------
-    def run(self, query: str,thread_id: str= "default_thread") -> str:
+    def run(self, query: str,thread_id: str = "default_thread") -> str:
         """Run the workflow for a given query and return the final answer."""
         result = self.app.invoke({"messages": [HumanMessage(content=query)]},
-                                 config={"configurable": {"thread_id": thread_id}})
+                                 config={"configurable": {"thread_id": thread_id,"recursion_limit": 100}},)
         return result["messages"][-1].content
+    
+        # function call with be asscoiate
+        # you will get some score
+        # put condition behalf on that score
+        # if relevany>0.75
+            #return
+        #else:
+            #contine
 
 
 if __name__ == "__main__":
+    
+    
     rag_agent = AgenticRAG()
     answer = rag_agent.run("What is the price of iPhone 15?")
     print("\nFinal Answer:\n", answer)
-
-
-
-
-
-
+    
+    
+    # retrieved_contexts,response = invoke_chain(user_query)
+    
+    # #this is not an actual output this have been written to test the pipeline
+    # #response="iphone 16 plus, iphone 16, iphone 15 are best phones under 1,00,000 INR."
+    
+    # context_score = evaluate_context_precision(user_query,response,retrieved_contexts)
+    # relevancy_score = evaluate_response_relevancy(user_query,response,retrieved_contexts)
+    
+    # print("\n--- Evaluation Metrics ---")
+    # print("Context Precision Score:", context_score)
+    # print("Response Relevancy Score:", relevancy_score)
