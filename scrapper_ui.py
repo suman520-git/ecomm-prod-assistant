@@ -2,7 +2,7 @@
 
 import streamlit as st
 from prod_assistant.etl.data_scrapper import FlipkartScraper
-# from prod_assistant.etl.data_ingestion import DataIngestion
+from prod_assistant.etl.data_ingestion import DataIngestion
 import os
 
 flipkart_scraper = FlipkartScraper()
@@ -123,13 +123,13 @@ if st.button("🚀 Start Scraping"):
         st.download_button("📥 Download CSV", data=open(output_path, "rb"), file_name="product_reviews.csv")
 
 # This stays OUTSIDE "if st.button('Start Scraping')"
-# if "scraped_data" in st.session_state and st.button("🧠 Store in Vector DB (AstraDB)"):
-#     with st.spinner("📡 Initializing ingestion pipeline..."):
-#         try:
-#             ingestion = DataIngestion()
-#             st.info("🚀 Running ingestion pipeline...")
-#             ingestion.run_pipeline()
-#             st.success("✅ Data successfully ingested to AstraDB!")
-#         except Exception as e:
-#             st.error("❌ Ingestion failed!")
-#             st.exception(e)
+if "scraped_data" in st.session_state and st.button("🧠 Store in Vector DB (AstraDB)"):
+    with st.spinner("📡 Initializing ingestion pipeline..."):
+        try:
+            ingestion = DataIngestion()
+            st.info("🚀 Running ingestion pipeline...")
+            ingestion.run_pipeline()
+            st.success("✅ Data successfully ingested to AstraDB!")
+        except Exception as e:
+            st.error("❌ Ingestion failed!")
+            st.exception(e)

@@ -1,0 +1,25 @@
+{"timestamp": "2025-11-15T18:17:22.514795Z", "level": "info", "event": "Running in LOCAL mode: .env loaded"}
+{"timestamp": "2025-11-15T18:17:22.514795Z", "level": "info", "event": "Loaded GROQ_API_KEY from individual env var"}
+{"timestamp": "2025-11-15T18:17:22.514795Z", "level": "info", "event": "Loaded GOOGLE_API_KEY from individual env var"}
+{"timestamp": "2025-11-15T18:17:22.514795Z", "level": "info", "event": "Loaded OPENAI_API_KEY from individual env var"}
+{"keys": {"GROQ_API_KEY": "gsk_vP...", "GOOGLE_API_KEY": "AIzaSy...", "OPENAI_API_KEY": "sk-pro..."}, "timestamp": "2025-11-15T18:17:22.514795Z", "level": "info", "event": "API keys loaded"}
+{"config_keys": ["astra_db", "embedding_model", "retriever", "llm"], "timestamp": "2025-11-15T18:17:22.514795Z", "level": "info", "event": "YAML config loaded"}
+{"timestamp": "2025-11-15T18:17:22.551902Z", "level": "info", "event": "Running in LOCAL mode: .env loaded"}
+{"timestamp": "2025-11-15T18:17:22.551902Z", "level": "info", "event": "Loaded GROQ_API_KEY from individual env var"}
+{"timestamp": "2025-11-15T18:17:22.551902Z", "level": "info", "event": "Loaded GOOGLE_API_KEY from individual env var"}
+{"timestamp": "2025-11-15T18:17:22.551902Z", "level": "info", "event": "Loaded OPENAI_API_KEY from individual env var"}
+{"keys": {"GROQ_API_KEY": "gsk_vP...", "GOOGLE_API_KEY": "AIzaSy...", "OPENAI_API_KEY": "sk-pro..."}, "timestamp": "2025-11-15T18:17:22.551902Z", "level": "info", "event": "API keys loaded"}
+{"config_keys": ["astra_db", "embedding_model", "retriever", "llm"], "timestamp": "2025-11-15T18:17:22.555066Z", "level": "info", "event": "YAML config loaded"}
+{"model": "models/text-embedding-004", "timestamp": "2025-11-15T18:17:22.555066Z", "level": "info", "event": "Loading embedding model"}
+vector store default init, collection 'ecommercedata'
+No valid keyspace found in environment variable.
+Detecting API environment 'prod' from supplied endpoint
+createCollection('ecommercedata')
+HTTP Request: POST https://42715e53-3104-4769-8a70-a50f1fae2f36-us-east-2.apps.astra.datastax.com/api/json/v1/default_keyspace "HTTP/1.1 200 OK"
+finished createCollection('ecommercedata')
+{"provider": "openai", "model": "gpt-4o", "timestamp": "2025-11-15T18:17:26.340586Z", "level": "info", "event": "Loading LLM"}
+Processing request of type CallToolRequest
+Error in engine wikipedia: DDGSException("RuntimeError: RuntimeError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=Current%20price%20of%20iPhone%2015%20in%20the%20United%20States): client error (Connect)\\n\\nCaused by:\\n    0: client error (Connect)\\n    1: dns error: No such host is known. (os error 11001)\\n    2: No such host is known. (os error 11001)')")
+HTTP Request: POST https://html.duckduckgo.com/html/ "HTTP/2 202 Accepted"
+response: https://www.bing.com/search?q=Current+price+of+iPhone+15+in+the+United+States&pq=Current+price+of+iPhone+15+in+the+United+States&cc=wt&filters=ex1%3A%22ez5_20042_20407%22 200
+Processing request of type ListToolsRequest
