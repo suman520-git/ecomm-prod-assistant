@@ -11,6 +11,7 @@ __pycache__/
 
 # Virtual environments
 venv/
+setup.py
 
 # Jupyter notebooks checkpoints
 .ipynb_checkpoints
