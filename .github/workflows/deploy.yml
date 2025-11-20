@@ -49,9 +49,9 @@ jobs:
           REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ steps.image-tag.outputs.tag }}
         run: |
-          docker build -t product-assistant .
-          docker tag product-assistant:latest 885268411978.dkr.ecr.us-east-1.amazonaws.com/product-assistant:latest
-          docker push 885268411978.dkr.ecr.us-east-1.amazonaws.com/product-assistant:latest
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -t $REGISTRY/$REPOSITORY:latest .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REPOSITORY:latest
 
       # Setup kubectl
       - name: Setup kubectl
