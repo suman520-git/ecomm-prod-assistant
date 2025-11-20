@@ -15,7 +15,7 @@ A Agentic RAG system that provides information for the given query from the cust
 
 
 ## Corrective RAG workflow
-![image alt](https://github.com/suman520-git/Agentic_RAG_Trading_Bot/blob/main/images/Workflow_graph.png?raw=true)
+![image alt](corrective Rag.png?raw=true)
 
 ## Project Structure
 ```
