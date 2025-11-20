@@ -5,13 +5,21 @@ A Agentic RAG system that provides information for the given query from the cust
 ##  Project Overview
 
 1.Web Scraping the FlipKart ecommerce platform for the given products search and saved  product details and reviews in CSV file.
+
 2.Converting the CSV data in to vector form and storing in ASTRA DB vectore store later used s a retriever.
+
 3.Converting retriver as tool for data retrieval in RAG system
+
 4.Adding duckduckgo as a web searching tool.
+
 4.Binding LLM with retriver tool and duckduckgo tool
+
 5.Building  an agentic RAG system(Corrective RAG) that can decide when to use the retriever tool and web search tool.
+
 6.Building API with FastAPI 
+
 7.Creation of streamlit app file for front end web scraping
+
 
 
 ## Corrective RAG workflow
