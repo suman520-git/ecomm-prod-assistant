@@ -15,7 +15,7 @@ A Agentic RAG system that provides information for the given query from the cust
 
 
 ## Corrective RAG workflow
-![image alt](corrective Rag.png?raw=true)
+![image alt](https://github.com/suman520-git/ecomm-prod-assistant/blob/main/corrective%20Rag.png?raw=true)
 
 ## Project Structure
 ```
