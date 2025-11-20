@@ -136,9 +136,11 @@ pip install -r requirements.txt
 # For web scraping(Decoupled,Independent of Main RAG pipeline)
 step.1 streamlit run /ecomm_prod_assistant/scrapper_ui.py
 
-![image alt](https://github.com/suman520-git/ecomm-prod-assistant/blob/main/Streamlit_ui.png?raw=true)
+
 
 ```
+## Streamlit UI
+![image alt](https://github.com/suman520-git/ecomm-prod-assistant/blob/main/Streamlit_ui.png?raw=true)
 
 ```bash
 #Steps to the run the application(from root folder):
@@ -152,9 +154,12 @@ step.1 python  .\ecomm-prod-assistant\prod_assistant\mcp_servers\product_search_
 step.2 uvicorn prod_assistant.router.main:app --reload --port 8000
 # Visit http://localhost:8000
 
-![image alt](https://github.com/suman520-git/ecomm-prod-assistant/blob/main/Application_UI.png?raw=true)
+
 
 ```
+## Application UI
+![image alt](https://github.com/suman520-git/ecomm-prod-assistant/blob/main/Application_UI.png?raw=true)
+
 
 ### 4.  Dockerization
 ```bash
