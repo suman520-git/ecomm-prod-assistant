@@ -19,50 +19,82 @@ A Agentic RAG system that provides information for the given query from the cust
 
 ## Project Structure
 ```
-Agentic_RAG_Trading_Bot                  
-├─ agent                                 
-│  ├─ workflow.py                        
-│  └─ __init__.py                        
-├─ config                                
-│  └─ config.yaml                        
-├─ custom_logging                        
-│  ├─ my_logger.py                       
-│  └─ __init__.py                        
-├─ data_ingestion                        
-│  ├─ ingestion_pipeline.py              
-│  └─ __init__.py                        
-├─ data_model                            
-│  ├─ models.py                          
-│  └─ __init__.py                        
-├─ exception                             
-│  ├─ exceptions.py                      
-│  └─ __init__.py                        
-├─ Experimentation                       
-│  └─ experi1.ipynb                      
-├─ fallback_data                         
-│  ├─ 1.docx                             
-│  ├─ stock_market.pdf                   
-│  ├─ stock_market_investing_guide.docx  
-│  └─ trading_basics.pdf                 
-├─ images                                
-│  └─ Workflow_graph.png                 
-├─ logs                                  
-│  ├─ 08_23_2025_03_05_55.log            
-│  ├─ 08_23_2025_03_27_02.log            
-│  └─ 08_23_2025_03_28_20.log            
-├─ toolkit                               
-│  ├─ tools.py                           
-│  └─ __init__.py                        
-├─ utils                                 
-│  ├─ config_loader.py                   
-│  ├─ model_loaders.py                   
-│  └─ __init__.py                        
-├─ main.py                               
-├─ README.md                             
-├─ requirements.txt                      
-├─ setup.py                              
-└─ streamlit_ui.py                       
-            
+ecomm-prod-assistant                             
+├─ data                                          
+│  └─ product_reviews.csv                        
+├─ .github                                        
+│  └─ workflows                                  
+│     ├─ deploy.yml                              
+│     └─ infra.yml                               
+├─ infra                                         
+│  └─ eks-with-ecr.yaml                          
+├─ k8                                            
+│  ├─ deployment.yaml                            
+│  └─ service.yaml                               
+├─ notebook                                      
+│  └─ test.ipynb                                 
+├─ prod_assistant                                
+│  ├─ config                                     
+│  │  ├─ config.yaml                             
+│  │  └─ __init__.py                             
+│  ├─ etl                                        
+│  │  ├─ logs                                    
+│  │  │  └─ 11_09_2025_00_56_25.log              
+│  │  ├─ data_ingestion.py                       
+│  │  ├─ data_scrapper.py                        
+│  │  └─ __init__.py                             
+│  ├─ evaluation                                 
+│  │  ├─ ragas_eval.py                           
+│  │  └─ __init__.py                             
+│  ├─ exception                                  
+│  │  ├─ custom_exception.py                     
+│  │  └─ __init__.py                             
+│  ├─ logger                                     
+│  │  ├─ custom_logger.py                        
+│  │  └─ __init__.py                             
+│  ├─ mcp_servers                                
+│  │  ├─ client.py                               
+│  │  ├─ product_search_server.py                
+│  │  └─ __init__.py                             
+│  ├─ prompt_library                             
+│  │  ├─ prompts.py                              
+│  │  └─ __init__.py                             
+│  ├─ retriever                                  
+│  │  ├─ retrieval.py                            
+│  │  └─ __init__.py                             
+│  ├─ router                                     
+│  │  ├─ main.py                                 
+│  │  └─ __init__.py                             
+│  ├─ utils                                      
+│  │  ├─ config_loader.py                        
+│  │  ├─ model_loader.py                         
+│  │  └─ __init__.py                             
+│  ├─ workflow                                   
+│  │  ├─ agentic_rag_workflow.py                 
+│  │  ├─ agentic_workflow_with_mcp.py            
+│  │  ├─ agentic_workflow_with_mcp_websearch.py  
+│  │  ├─ normal_generation_workflow.py           
+│  │  └─ __init__.py                             
+│  └─ __init__.py                                
+├─ static                                        
+│  ├─ f6634145-b9d9-4ea1-b5e5-cb705192c6fd.png   
+│  └─ style.css                                  
+├─ templates                                     
+│  └─ chat.html                                  
+├─ test                                          
+│  └─ __init__.py                                
+├─ corrective Rag.png                            
+├─ Dockerfile                                    
+├─ get_lib_versions.py                           
+├─ main.py                                       
+├─ pyproject.toml                                
+├─ README.md                                     
+├─ requirements.txt                              
+├─ scrapper_ui.py                                
+└─ setup.py                                      
+                     
+
+
 
 ```
 
@@ -72,8 +104,8 @@ Agentic_RAG_Trading_Bot
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd Agentic_RAG_Trading_Bot
+git clone https://github.com/suman520-git/ecomm-prod-assistant.git
+cd ecomm-prod-assistant
 
 # Create virtual environment
 conda create -p venv python==3.10 -y
@@ -86,56 +118,53 @@ pip install -r requirements.txt
 ### 2. Configuration
 
 ```bash
-# Create environment template
+# Create environment file
 .env
 
 # Edit .env with your API keys
 # Required:
-# - TAVILY_API_KEY="xxx"
-# - PINECONE_API_KEY="xxx"
-# - POLYGON_API_KEY="xxxx"
+# - ASTRA_DB_API_ENDPOINT="xxx"
+# - ASTRA_DB_APPLICATION_TOKEN="xxx"
+# - ASTRA_DB_KEYSPACE="default_keyspace"
 # - GOOGLE_API_KEY="xxxx"
-# - GROQ_API_KEY="xxxx"
+# - OPENAI_API_KEY="xxxx"
 ```
 
-### 3. Verify Setup
+### 3. API Usage
 
 ```bash
-# Or start the FastAPI server (from project root in virtual environment)
-step.1 uvicorn main:app --host 0.0.0.0 --port 8000
-# Visit http://localhost:8000/docs
-step.2 after step.1 ,start through streamlit: streamlit run Streamlit_ui.py
+# For web scraping(Decoupled,Independent of Main RAG pipeline)
+step.1 streamlit run /ecomm_prod_assistant/scrapper_ui.py
+
+![image alt](https://github.com/suman520-git/ecomm-prod-assistant/blob/main/corrective%20Rag.png?raw=true)
+
 ```
-
-## 📚 Usage
-
-### Interactive Development
-Start with in order:
-1. **ingestion_pipeline.py** - Data Transformation and Ingestion in to Vectore store(PineConeDB)
-2. **tools.py** - Defining the tools
-3. **workflow.py** - Defining the Agentic workflow
-4. **main.py** - API testing
-4. **streamlit_ui.py** - Creation of front end file , integrated with API
-
-
-### API Usage
-Start the FastAPI server and visit `/docs` for interactive API documentation:
 
 ```bash
-# Or start the FastAPI server (from project root in virtual environment)
-step.1 uvicorn main:app --host 0.0.0.0 --port 8000
-# Visit http://localhost:8000/docs
-step.2 after step.1 ,start through streamlit: streamlit run Streamlit_ui.py
-``` start through streamlit 
-streamlit run Streamlit_ui.py
+#Steps to the run the application(from root folder):
+
+# first run the MCP server
+step.1 python  .\ecomm-prod-assistant\prod_assistant\mcp_servers\product_search_server.py
+
+
+
+# start the FastAPI server for the app to start 
+step.2 uvicorn prod_assistant.router.main:app --reload --port 8000
+# Visit http://localhost:8000
+
+![image alt](https://github.com/suman520-git/ecomm-prod-assistant/blob/main/corrective%20Rag.png?raw=true)
+
 ```
 
-### Model Settings
-- **LLM**: "meta-llama/llama-4-maverick-17b-128e-instruct"
-- **Embedding**: "models/text-embedding-004"
-- **Top-K Retrieval**: 2 documents
+### 4.  Dockerization
+```bash
+# Build Docker Image
+step.1 docker build -t prod-assistant .
 
+#Run Docker Container
+step.2 docker run -d -p 8000:8000 --name product-assistant prod-assistant
 
+```
 
 ## 🆘 Support
 
