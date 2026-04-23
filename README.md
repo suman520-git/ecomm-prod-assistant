@@ -1,24 +1,26 @@
 # E-Commerce-Product-Assistant
 
-A Agentic RAG system that provides information for the given query from the customer about the product reviews and price deatails
+A Agentic RAG system that retrieves product reviews and price details from the database or from websearch  for the given query bythe customer about the products like electronic goods etc.
 
 ##  Project Overview
 
 1.Web Scraping the FlipKart ecommerce platform for the given products search and saved  product details and reviews in CSV file.
 
-2.Converting the CSV data in to vector form and storing in ASTRA DB vectore store later used s a retriever.
+2.Data Ingestion:Converting the CSV data in to vector form and storing in ASTRA DB(cloud form) vectore store later used s a retriever.
 
 3.Converting retriver as tool for data retrieval in RAG system
 
 4.Adding duckduckgo as a web searching tool.
 
-4.Binding LLM with retriver tool and duckduckgo tool
+5.Binding LLM with retriver tool and duckduckgo tool
 
-5.Building  an agentic RAG system(Corrective RAG) that can decide when to use the retriever tool and web search tool.
+6.Building  an agentic RAG system(Corrective RAG) that can decide when to use the retriever tool and web search tool.
 
-6.Building API with FastAPI 
+7.Building API endpoints for retrieval pipeline with FastAPI 
 
-7.Creation of streamlit app file for front end web scraping
+8.Creation of streamlit app file for front end web scraping and Data Ingestion pipelines.
+
+9.Webscraping ,Data Ingestion and response generation are decoupled pipelines.
 
 
 
@@ -145,9 +147,8 @@ pip install -r requirements.txt
 step.1 streamlit run /ecomm_prod_assistant/scrapper_ui.py
 
 
-
 ```
-## Streamlit UI
+## Streamlit UI(For Web scaping and Data Ingestion)
 ![image alt](https://github.com/suman520-git/ecomm-prod-assistant/blob/main/Streamlit_ui.png?raw=true)
 
 ```bash
@@ -165,7 +166,7 @@ step.2 uvicorn prod_assistant.router.main:app --reload --port 8000
 
 
 ```
-## Application UI
+## Application UI(For Rereieval and Generation)
 ![image alt](https://github.com/suman520-git/ecomm-prod-assistant/blob/main/Application_UI.png?raw=true)
 
 
