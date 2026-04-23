@@ -4,7 +4,7 @@ A Agentic RAG system that retrieves product reviews and price details from the d
 
 ##  Project Overview
 
-1.Web Scraping the FlipKart ecommerce platform for the given products search and saved  product details and reviews in CSV file.
+1.Web Scraping the FlipKart ecommerce platform for the given products search to save  product details and reviews in CSV file.
 
 2.Data Ingestion:Converting the CSV data in to vector form and storing in ASTRA DB(cloud form) vectore store later used s a retriever.
 
@@ -148,7 +148,7 @@ step.1 streamlit run /ecomm_prod_assistant/scrapper_ui.py
 
 
 ```
-## Streamlit UI(For Web scaping and Data Ingestion)
+## Streamlit UI(For Web Scraping and Data Ingestion)
 ![image alt](https://github.com/suman520-git/ecomm-prod-assistant/blob/main/Streamlit_ui.png?raw=true)
 
 ```bash
@@ -166,7 +166,7 @@ step.2 uvicorn prod_assistant.router.main:app --reload --port 8000
 
 
 ```
-## Application UI(For Rereieval and Generation)
+## Application UI(For Retrieval and Generation)
 ![image alt](https://github.com/suman520-git/ecomm-prod-assistant/blob/main/Application_UI.png?raw=true)
 
 
